@@ -1,4 +1,4 @@
-# Build the blog and publish it to GitHub Pages at personaljarvis.ai/blog.
+# Build the blog and publish it to GitHub Pages at dodaios.ai/blog.
 name: deploy
 
 on:

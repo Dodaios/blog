@@ -1,10 +1,12 @@
-# CLAUDE.md — personal-jarvis-blog
+# CLAUDE.md — dodaios-blog
 
 Rules for any coding agent working in this repo.
 
-- This is the blog for personaljarvis.ai/blog. It is its OWN git repo. Never commit it into the
-  Personal Jarvis app repo or the main website repo (`personaljarvis.github.io`), and never the
-  other way round. The Jarvis app source is READ-ONLY reference for facts.
+- This is the blog for dodaios.ai/blog. It is its OWN git repo. Never commit it into the
+  Dodaios app repo or the main website repo, and never the other way round. The app source is
+  READ-ONLY reference for facts. The project was called Personal Jarvis until October 2026:
+  posts from before then keep that name, and the post page adds one line saying so
+  (`showsRenameNote` in `src/lib.ts`). Never rewrite their prose to the new name.
 - Everything committed is English. Conversation with the maintainer is German.
 - `.claude/` (authoring skills, topic backlog) and `drafts/` are private and gitignored. Never
   force-add them. Use the `blog-*` skills in `.claude/skills/` for any post work; start with
@@ -13,7 +15,8 @@ Rules for any coding agent working in this repo.
   a push publishes to the public internet.
 - The blog has its own quiet reading design (light paper + automatic dark mode, serif body,
   sans small print). It never imitates another website. Colours only via roles in
-  `src/styles/global.css`. Logo = the Gigi ghost (`public/gigi.svg`).
+  `src/styles/global.css`. Logo = the hooded figure (`public/dodaios.svg`, the path of the
+  app repo's `assets/brand/dodaios-logo.svg`).
 - Every post has a cover drawing `src/illustrations/<slug>.svg`: ink line art with Gigi ghosts
   on the category's flat tone (`CATEGORY_TONE`). It is both the index thumbnail and the link
   preview; the build fails without it. Never a screenshot or mockup as a cover.

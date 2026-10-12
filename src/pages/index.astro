@@ -20,7 +20,7 @@ const jsonLd = {
   name: SITE.title,
   url: new URL(href(), Astro.site).toString(),
   description: SITE.tagline,
-  publisher: { "@type": "Organization", name: "Personal Jarvis", url: SITE.main },
+  publisher: { "@type": "Organization", name: SITE.name, url: SITE.main },
 };
 ---
 
@@ -31,7 +31,7 @@ const jsonLd = {
         <h1 id="hero-title" class="hero-label">Blog</h1>
         <div class="hero-pitch">
           <p>{SITE.tagline}</p>
-          <a class="button" href={SITE.main}>Get Personal Jarvis</a>
+          <a class="button" href={SITE.main}>Get {SITE.name}</a>
         </div>
       </div>
       <nav class="hero-topics" aria-label="Browse by category">

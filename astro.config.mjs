@@ -5,9 +5,11 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  // Served at personaljarvis.ai/blog/: GitHub Pages publishes an org's project
-  // repo under the org site's custom domain, so the blog inherits its HTTPS.
-  site: "https://personaljarvis.ai",
+  // Served at dodaios.ai/blog/: GitHub Pages publishes an org's project repo
+  // under the org site's custom domain, so the blog inherits its HTTPS. That
+  // only holds while the org site lives in a repository named
+  // `<org>.github.io`; without one the blog answers at dodaios.github.io/blog/.
+  site: "https://dodaios.ai",
   base: "/blog",
   trailingSlash: "always",
   integrations: [mdx(), sitemap()],

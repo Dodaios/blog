@@ -5,7 +5,7 @@ import { renderOg, type OgCard } from "@/og";
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getPosts();
   // Every published post wears its own cover drawing: it is the index
-  // thumbnail and the link preview. Drafts may borrow Gigi until then.
+  // thumbnail and the link preview. Drafts may borrow the default until then.
   const bare = posts.filter((p) => !p.data.draft && !hasIllustration(p.id)).map((p) => p.id);
   if (bare.length) {
     throw new Error(`Missing cover drawing for ${bare.join(", ")}: add src/illustrations/<slug>.svg`);
@@ -14,9 +14,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     {
       slug: "default",
       card: {
-        title: "Notes from building Personal Jarvis",
+        title: "Notes from building Dodaios",
         label: "New features, field notes and tips",
-        meta: "personaljarvis.ai/blog",
+        meta: "dodaios.ai/blog",
         tone: CATEGORY_TONE.agents,
         drawing: illustration("default"),
       },
