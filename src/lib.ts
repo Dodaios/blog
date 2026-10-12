@@ -33,14 +33,36 @@ export function formatDate(d: Date): string {
  * cache a card image by its URL for days; bump this when src/og.ts changes
  * how cards look, or shares keep showing the old design.
  */
-export const OG_VERSION = 3;
+export const OG_VERSION = 4;
 
 export const SITE = {
-  title: "Personal Jarvis Blog",
+  name: "Dodaios",
+  title: "Dodaios Blog",
   tagline: "What we ship, what we measure while shipping it, and how to get more out of an AI assistant on your own machine.",
-  main: "https://personaljarvis.ai",
+  main: "https://dodaios.ai",
+  /** The project's X account, as it goes into twitter:site. */
+  x: "@dodaios",
   github: "https://github.com/Dodaios/Dodaios",
 };
+
+/**
+ * The project was called Personal Jarvis until this day. Posts published
+ * before it name the product by its old name and are left as written; the
+ * post page puts one line above them that says so (see `showsRenameNote`).
+ */
+export const FORMER_NAME = "Personal Jarvis";
+export const RENAMED_ON = new Date("2026-10-12T00:00:00Z");
+/** The post that announces the rename; the note links to it. */
+export const RENAME_POST = "personal-jarvis-is-now-dodaios";
+
+/**
+ * Whether a post gets the "is now called Dodaios" line. By date, so the older
+ * posts need no edit; `renameNote` in a post's frontmatter overrides it.
+ */
+export function showsRenameNote(post: Post): boolean {
+  if (post.id === RENAME_POST) return false;
+  return post.data.renameNote ?? post.data.pubDate.valueOf() < RENAMED_ON.valueOf();
+}
 
 /** How a category reads on the page; the schema enum stays the URL key. */
 export const CATEGORY_LABEL: Record<Post["data"]["category"], string> = {
@@ -75,7 +97,7 @@ export function hasIllustration(slug: string): boolean {
   return `/src/illustrations/${slug}.svg` in drawings;
 }
 
-/** A post's line drawing (src/illustrations/<slug>.svg), or Gigi when it has none. */
+/** A post's line drawing (src/illustrations/<slug>.svg), or the default one when it has none. */
 export function illustration(slug: string): string {
   return drawings[`/src/illustrations/${slug}.svg`] ?? drawings["/src/illustrations/default.svg"];
 }

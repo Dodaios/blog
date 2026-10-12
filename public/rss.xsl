@@ -9,7 +9,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>RSS feed · <xsl:value-of select="title" /></title>
-        <link rel="icon" type="image/svg+xml" href="/blog/gigi.svg" />
+        <link rel="icon" type="image/svg+xml" href="/blog/dodaios.svg" />
         <style>
           :root { color-scheme: light; --paper: #fbfaf7; --panel: #f3f1eb; --ink: #171613; --ink-2: #44423c; --ink-3: #6f6c64; --rule: #e2dfd6; --accent: #9a6412; }
           @media (prefers-color-scheme: dark) {
@@ -37,13 +37,13 @@
       </head>
       <body>
         <main class="wrap">
-          <a class="brand" href="/blog/"><img src="/blog/gigi.svg" alt="" width="26" height="28" />Personal Jarvis <span class="small">Blog</span></a>
+          <a class="brand" href="/blog/"><img src="/blog/dodaios.svg" alt="" width="26" height="26" />Dodaios <span class="small">Blog</span></a>
           <h1>Subscribe to the blog</h1>
           <p class="lead">This is the RSS feed of <xsl:value-of select="title" />. Add its address to any feed reader and new posts arrive there as they are published.</p>
           <div class="box small">
             <p>Feed address</p>
             <div class="url">
-              <code id="feed">https://personaljarvis.ai/blog/rss.xml</code>
+              <code id="feed">https://dodaios.ai/blog/rss.xml</code>
               <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('feed').textContent).then(function(){{ this.textContent = 'Copied'; }}.bind(this))">Copy</button>
             </div>
           </div>

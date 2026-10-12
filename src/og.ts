@@ -26,7 +26,14 @@ const serif = font("@fontsource/newsreader", "newsreader-latin-500-normal.woff")
 const inter400 = font("@fontsource/inter", "inter-latin-400-normal.woff");
 const inter500 = font("@fontsource/inter", "inter-latin-500-normal.woff");
 const mono500 = font("@fontsource/jetbrains-mono", "jetbrains-mono-latin-500-normal.woff");
-const gigi = `data:image/svg+xml;base64,${readFileSync(join(root, "public", "gigi.svg")).toString("base64")}`;
+// The logo as it sits on a card: always ink, because a card's ground is a
+// flat light tone whatever theme the reader's page is in. public/dodaios.svg
+// switches its fill with the colour scheme, so the rule is replaced here.
+const logoSvg = readFileSync(join(root, "public", "dodaios.svg"), "utf8").replace(
+  /<style>[^<]*<\/style>/,
+  "<style>path{fill:#141413}</style>",
+);
+const logo = `data:image/svg+xml;base64,${Buffer.from(logoSvg).toString("base64")}`;
 
 // Ink on the tone, as in the drawings themselves.
 const C = {
@@ -78,8 +85,8 @@ export async function renderOg(card: OgCard): Promise<Uint8Array> {
   const visual = img(drawing, 600, 400, { position: "absolute", left: 588, top: 96 });
 
   const brand = h("div", { display: "flex", alignItems: "center", gap: 14 }, [
-    img(gigi, 36, 39),
-    h("div", { fontSize: 24, fontWeight: 500, color: C.ink }, "Personal Jarvis"),
+    img(logo, 38, 38),
+    h("div", { fontSize: 24, fontWeight: 500, color: C.ink }, "Dodaios"),
     h("div", { width: 1.5, height: 22, background: C.rule }),
     h("div", { fontSize: 24, color: C.ink3 }, "Blog"),
   ]);

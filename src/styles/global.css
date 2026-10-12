@@ -150,7 +150,7 @@ a {
 
 .brand img {
   width: 26px;
-  height: 28px;
+  height: 26px;
 }
 
 .brand span {
@@ -870,6 +870,22 @@ a {
   margin-top: 2rem;
   padding-top: 1rem;
   border-top: 1px solid var(--rule);
+}
+
+/* One line on posts published before the rename: they say Personal Jarvis,
+ * the product is now Dodaios. Set like the method notes, so it reads as a
+ * remark about the post and not as part of it. */
+.rename-note {
+  margin: 1.25rem 0 0;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--ink-2);
+}
+
+.rename-note a {
+  color: var(--accent);
+  text-underline-offset: 0.18em;
 }
 
 .prose {
