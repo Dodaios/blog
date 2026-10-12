@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" fill="none">
+  <!-- A window; one part of it is selected with corner grips, an arrow points into it, a shutter flash sits at its corner. -->
+  <g stroke="#141413" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+<rect vector-effect="non-scaling-stroke" x="56" y="58" width="300" height="212" rx="12" fill="#faf9f5"/>
+<path vector-effect="non-scaling-stroke" d="M56 90 H356"/>
+<path vector-effect="non-scaling-stroke" d="M82 122 H196 M82 148 H170 M82 222 H150 M82 246 H126"/>
+<rect vector-effect="non-scaling-stroke" x="196" y="140" width="132" height="96" stroke-dasharray="10 9"/>
+<rect vector-effect="non-scaling-stroke" x="189" y="133" width="14" height="14" fill="#faf9f5"/>
+<rect vector-effect="non-scaling-stroke" x="321" y="133" width="14" height="14" fill="#faf9f5"/>
+<rect vector-effect="non-scaling-stroke" x="189" y="229" width="14" height="14" fill="#faf9f5"/>
+<rect vector-effect="non-scaling-stroke" x="321" y="229" width="14" height="14" fill="#faf9f5"/>
+<path vector-effect="non-scaling-stroke" d="M222 214 L246 190 L262 204 L296 168"/>
+<path vector-effect="non-scaling-stroke" d="M432 250 L346 196 M346 196 L374 198 M346 196 L358 221"/>
+<path vector-effect="non-scaling-stroke" d="M392 84 V62 M408 94 L424 78 M414 112 H436"/>
+  </g>
+</svg>

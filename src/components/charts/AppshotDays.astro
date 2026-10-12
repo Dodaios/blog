@@ -1,0 +1,53 @@
+---
+/**
+ * Appshots per day on the machine Dodaios is built on, October 3 to 12, 2026,
+ * stacked by kind: an area dragged with the mouse, or the whole front window.
+ * Read from src/data/appshots.json (`days`, counts only, no pictures).
+ */
+import data from "@/data/appshots.json";
+import { barUp } from "./util";
+
+const W = 640;
+const H = 260;
+const top = 26;
+const base = H - 40;
+const left = 34;
+const max = 150;
+const days = data.days;
+const slot = (W - left) / days.length;
+const bw = slot * 0.56;
+const y = (v: number) => base - ((base - top) * v) / max;
+const MONTH = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const nice = (iso: string) => {
+  const [, m, d] = iso.split("-").map(Number);
+  return `${MONTH[m - 1]} ${d}`;
+};
+const total = (d: (typeof days)[number]) => d.area + d.window;
+---
+
+<svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Appshots per day from ${nice(days[0].date)} to ${nice(days[days.length - 1].date)}, 2026. ${data.totals.appshots} in total, ${data.totals.area} of them a dragged area and ${data.totals.window} a whole window.`}>
+  {
+    [0, 50, 100, 150].map((v) => (
+      <g>
+        <line x1={left} x2={W} y1={y(v)} y2={y(v)} stroke={v === 0 ? "var(--axis)" : "var(--grid)"} />
+        <text class="t-axis" x={0} y={y(v) + 4}>{v}</text>
+      </g>
+    ))
+  }
+  {
+    days.map((d, i) => {
+      const x = left + i * slot + (slot - bw) / 2;
+      const tip = `<b>${nice(d.date)}</b><br>${d.area} dragged areas<br>${d.window} whole windows`;
+      return (
+        <g>
+          <rect class="hit" x={left + i * slot} y={top - 12} width={slot} height={base - top + 12} data-tip={tip} />
+          <rect class="hl" x={left + i * slot} y={top - 12} width={slot} height={base - top + 12} fill="var(--ink)" fill-opacity="0.06" pointer-events="none" />
+          {d.area > 0 && <path d={barUp(x, y(d.area), bw, base, d.window > 0 ? 0 : 3)} fill="var(--accent)" pointer-events="none" />}
+          {d.window > 0 && <path d={barUp(x, y(total(d)), bw, y(d.area) - 1, 3)} fill="var(--mark-muted)" pointer-events="none" />}
+          <text class="t-strong" x={x + bw / 2} y={y(total(d)) - 7} text-anchor="middle">{total(d)}</text>
+          <text class="t-axis" x={x + bw / 2} y={base + 18} text-anchor="middle">{nice(d.date)}</text>
+        </g>
+      );
+    })
+  }
+</svg>

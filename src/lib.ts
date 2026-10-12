@@ -39,7 +39,7 @@ export const SITE = {
   title: "Personal Jarvis Blog",
   tagline: "What we ship, what we measure while shipping it, and how to get more out of an AI assistant on your own machine.",
   main: "https://personaljarvis.ai",
-  github: "https://github.com/PersonalJarvis/PersonalJarvis",
+  github: "https://github.com/Dodaios/Dodaios",
 };
 
 /** How a category reads on the page; the schema enum stays the URL key. */
