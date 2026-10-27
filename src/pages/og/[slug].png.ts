@@ -1,6 +1,7 @@
 import type { APIRoute, GetStaticPaths } from "astro";
 import { CATEGORY_LABEL, CATEGORY_TONE, formatDate, getPosts, hasIllustration, illustration, readingMinutes } from "@/lib";
 import { renderOg, type OgCard } from "@/og";
+import { RENAMED_SLUGS } from "@/renamed-slugs";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getPosts();
@@ -32,6 +33,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
       },
     })),
   ];
+  // A renamed post's card is served at its old address too, so a share made
+  // before the rename keeps its preview image (now with the current title).
+  for (const [from, to] of Object.entries(RENAMED_SLUGS)) {
+    const current = cards.find((c) => c.slug === to);
+    if (current) cards.push({ slug: from, card: current.card });
+  }
   return cards.map(({ slug, card }) => ({ params: { slug }, props: { card } }));
 };
 

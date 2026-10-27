@@ -62,11 +62,11 @@ const jsonLd = {
         {d.version && <span>Written against version {d.version}</span>}
       </div>
       {
-        // Posts from before the rename keep their wording; this one line
-        // tells a new reader which product they are reading about.
+        // Posts from before the rename say Dodaios now, but their numbers,
+        // versions and screenshots are from the old name's time.
         showsRenameNote(post) && (
           <p class="rename-note small">
-            {FORMER_NAME} is now called {SITE.name}. <a href={href(`${RENAME_POST}/`)}>What changed</a>
+            Written when the project was still called {FORMER_NAME}. <a href={href(`${RENAME_POST}/`)}>What changed</a>
           </p>
         )
       }

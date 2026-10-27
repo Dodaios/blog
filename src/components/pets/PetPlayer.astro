@@ -2,7 +2,7 @@
 /**
  * A player for one pet: pick a pet, then a state or an idle act, and watch
  * the real sprite row play the way the desktop renderer plays it. The text
- * under the stage says which Jarvis events drive that state (docs/pets.md).
+ * under the stage says which Dodaios events drive that state (docs/pets.md).
  */
 import data from "@/data/pets.json";
 import { href } from "@/lib";
@@ -20,11 +20,11 @@ const pets = data.pets;
 const STATES: { id: string; label: string; driver: string }[] = [
   { id: "idle", label: "Idle", driver: "Nothing is happening. Left alone, the pet plays one of its idle acts after 6 to 18 seconds, then every 14 to 40." },
   { id: "listening", label: "Listening", driver: "The wake word was heard, a voice session started, or you are dictating." },
-  { id: "thinking", label: "Thinking", driver: "Jarvis is working out its answer." },
-  { id: "talking", label: "Talking", driver: "Jarvis speaks. In the app the mouth follows the live voice level; here it swings open and shut, as it does when no level arrives." },
-  { id: "success", label: "Success", driver: "Plays once, for 1.5 seconds: a job Jarvis started is done, or a step outside a conversation worked." },
+  { id: "thinking", label: "Thinking", driver: "Dodaios is working out its answer." },
+  { id: "talking", label: "Talking", driver: "Dodaios speaks. In the app the mouth follows the live voice level; here it swings open and shut, as it does when no level arrives." },
+  { id: "success", label: "Success", driver: "Plays once, for 1.5 seconds: a job Dodaios started is done, or a step outside a conversation worked." },
   { id: "error", label: "Error", driver: "Plays once, for 2 seconds: something failed that you would notice, such as a provider that is unavailable." },
-  { id: "sleeping", label: "Sleeping", driver: "Five minutes without any Jarvis event. The next event wakes it." },
+  { id: "sleeping", label: "Sleeping", driver: "Five minutes without any Dodaios event. The next event wakes it." },
   { id: "working", label: "Working", driver: "A tool step that changes, sends or runs something, or an agent task running in the background." },
   { id: "searching", label: "Searching", driver: "A tool step that looks something up: its name contains a word like search, find, read, fetch, browse, query, list or wiki." },
   { id: "held", label: "Being carried", driver: "You are dragging the pet across the desktop with the mouse." },

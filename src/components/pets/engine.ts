@@ -1,8 +1,8 @@
 /**
- * Plays the real Personal Jarvis pet sprite sheets in the browser.
+ * Plays the real Dodaios pet sprite sheets in the browser.
  *
  * The frame maths is a port of the desktop renderer (`ui/orb/pet_renderer.py`
- * in the Personal Jarvis repo): `frameIndex` with its accent frames (the idle
+ * in the Dodaios repo): `frameIndex` with its accent frames (the idle
  * blink every third breath), `pingPong` for a talking mouth with no voice
  * level, one-shots that rest on their last frame, and idle acts that play once.
  * Sheets are drawn nearest-neighbour at an integer scale of device pixels, so
