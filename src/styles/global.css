@@ -872,8 +872,8 @@ a {
   border-top: 1px solid var(--rule);
 }
 
-/* One line on posts published before the rename: they say Personal Jarvis,
- * the product is now Dodaios. Set like the method notes, so it reads as a
+/* One line on posts published before the rename: they were written under the
+ * old name, Personal Jarvis. Set like the method notes, so it reads as a
  * remark about the post and not as part of it. */
 .rename-note {
   margin: 1.25rem 0 0;

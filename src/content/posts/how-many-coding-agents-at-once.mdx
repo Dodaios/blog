@@ -1,6 +1,6 @@
 ---
-title: "How we build Personal Jarvis with up to 16 coding agents at once"
-description: "We build Personal Jarvis with coding agents running side by side. We counted how many work at once, what broke as the number grew, and the rules we ended up with."
+title: "How we build Dodaios with up to 16 coding agents at once"
+description: "We build Dodaios with coding agents running side by side. We counted how many work at once, what broke as the number grew, and the rules we ended up with."
 pubDate: 2026-09-29
 category: agents
 version: "2.3"
@@ -17,9 +17,9 @@ import data from "@/data/agent-usage.json";
 
 export const share = (n) => `${((n / data.activeWindows) * 100).toFixed(1)}%`;
 
-More than 800 commits landed on the main branch of Personal Jarvis in September. Much of that code came out of coding agents, Codex, Claude Code and a few others, running side by side on one workstation. For months we had been saying that we "run agents in parallel". We had never counted.
+More than 800 commits landed on the main branch of Dodaios in September. Much of that code came out of coding agents, Codex, Claude Code and a few others, running side by side on one workstation. For months we had been saying that we "run agents in parallel". We had never counted.
 
-So we pointed Jarvis at itself. Jarvis already reads the session logs that coding CLIs write to disk; that is how its Spend view shows what your agents did and what they cost. We ran the same index over five months of logs from the machine Jarvis is built on. In this post, "we" means the people building Personal Jarvis and the agents that do much of the typing.
+So we pointed Dodaios at itself. Dodaios already reads the session logs that coding CLIs write to disk; that is how its Spend view shows what your agents did and what they cost. We ran the same index over five months of logs from the machine Dodaios is built on. In this post, "we" means the people building Dodaios and the agents that do much of the typing.
 
 This post covers what we found, three things that broke as the number of agents grew, and the rules we ended up with. If you run more than one agent yourself, most of it will apply to you.
 
@@ -39,7 +39,7 @@ In May, the busiest moment of a typical day had one agent working. By August it 
   n={1}
   title="The typical day went from one agent at a time to about ten"
   subtitle="Most agents working in the same five minutes, per day. Bar: the median day of the month. Ring: the busiest day."
-  source="Personal Jarvis CLI usage index, agent sessions with five or more model calls"
+  source="Dodaios CLI usage index, agent sessions with five or more model calls"
   legend={[
     { label: "Typical day (median of daily peaks)", color: "var(--accent)" },
     { label: "Busiest day of the month", color: "var(--ink)", ring: true },
@@ -65,7 +65,7 @@ Three days reached sixteen agents at once, all in September. This is the first o
   n={2}
   title="September 10: two blocks of work, each climbing to sixteen agents"
   subtitle="Agents that made a model call in each five-minute window, stacked by coding CLI. Hover for exact counts."
-  source="Personal Jarvis CLI usage index, local time"
+  source="Dodaios CLI usage index, local time"
   legend={CLI_ORDER.filter((c) => data.busiestDay.clis.includes(c)).map((c) => ({ label: c, color: CLI_COLOR[c] }))}
 >
   <BusiestDay />
@@ -74,7 +74,7 @@ Three days reached sixteen agents at once, all in September. This is the first o
 
 The day ran in two blocks with a gap at lunch. Between 11:00 and 11:40 the count held between 12 and 16. After the break it rose from 7 at 3:00 to 16 at 3:30 pm, then tapered off by six. At both peaks, every working agent was a Codex session.
 
-Many agents picking up related work within minutes is exactly the case our voice briefing was built for: you say one instruction, and Jarvis writes a separate prompt for each agent. It is also where our first version of that briefing failed, as the next sections show.
+Many agents picking up related work within minutes is exactly the case our voice briefing was built for: you say one instruction, and Dodaios writes a separate prompt for each agent. It is also where our first version of that briefing failed, as the next sections show.
 
 ## Two or more agents, 69% of the time
 
@@ -84,7 +84,7 @@ Peaks are the dramatic part. The useful question is what an ordinary hour looks 
   n={3}
   title="Working with a single agent was the exception"
   subtitle="Share of all working five-minute windows, by how many agents were working in them."
-  source="Personal Jarvis CLI usage index, May–September 2026"
+  source="Dodaios CLI usage index, May–September 2026"
   table={{
     head: ["Agents at once", "Share of working time", "Five-minute windows"],
     rows: data.distribution.map((d) => [d.n, share(d.buckets), d.buckets]),
@@ -96,7 +96,7 @@ Peaks are the dramatic part. The useful question is what an ordinary hour looks 
 
 Two agents were the most common kind of parallel work, then three, then four. Eight or more agents were working in 12% of the windows.
 
-The top of the scale is sixteen, and that number is ours. A Jarvis workspace holds at most sixteen agents, because every pane is a full CLI process with its own terminal. We treat sixteen as a resource limit, not a layout choice; past it, the answer in our own code is a second workspace. In five months, we sat at that limit for half an hour in total and never went past it. If you hit a limit like that every day, you have outgrown one workspace, not one screen.
+The top of the scale is sixteen, and that number is ours. A Dodaios workspace holds at most sixteen agents, because every pane is a full CLI process with its own terminal. We treat sixteen as a resource limit, not a layout choice; past it, the answer in our own code is a second workspace. In five months, we sat at that limit for half an hour in total and never went past it. If you hit a limit like that every day, you have outgrown one workspace, not one screen.
 
 ## What broke when we went parallel
 
@@ -106,7 +106,7 @@ One agent is a tool. Ten agents are a team, and a team needs rules. Three of our
 
 The obvious setup is one checkout of the repository with every agent working in it. It fails in a way that is easy to miss: an agent that runs `git add -A` sweeps another agent's half-finished work into its own commit. The rule in our `AGENTS.md`, the rulebook our coding agents load at the start of every session, now says it plainly: "The working tree is SHARED with other agent sessions. Stage only YOUR paths."
 
-For larger work, an agent gets its own worktree, a separate folder on its own branch. When it is done, it runs one command, `scripts/agent_land.py`, which refuses to run in a checkout with uncommitted changes, rebases, runs the checks and pushes. **Give every agent its own checkout.** In Jarvis, that is **New workspace in a worktree** in the project's menu.
+For larger work, an agent gets its own worktree, a separate folder on its own branch. When it is done, it runs one command, `scripts/agent_land.py`, which refuses to run in a checkout with uncommitted changes, rebases, runs the checks and pushes. **Give every agent its own checkout.** In Dodaios, that is **New workspace in a worktree** in the project's menu.
 
 ### Nothing landed
 
@@ -114,11 +114,11 @@ The obvious way to merge agent work is one pull request per agent, re-tested whe
 
 Since September 28, a merge train, a queue that lands pull requests one at a time, does the merging instead. Every fifteen minutes and on every push, it merges main into a pull request only when it conflicts or failed its tests while behind, regenerates generated files instead of fighting over them, and squash-merges the first green one. The trade-off is real: a change that passes alone and breaks together is caught by the full test run after the merge, not before. **Don't make every agent wait for every other agent.** The workflow is public in our repository as `.github/workflows/merge-train.yml`, if you want to copy it.
 
-### Jarvis said two agents were working. Only one was.
+### Dodaios said two agents were working. Only one was.
 
-The obvious way to brief several agents by voice is a loop: write a prompt, send it, move on to the next agent. On July 26, that loop reported success after only one of two agents had received its brief. Jarvis said both were working. The other one never got the task.
+The obvious way to brief several agents by voice is a loop: write a prompt, send it, move on to the next agent. On July 26, that loop reported success after only one of two agents had received its brief. Dodaios said both were working. The other one never got the task.
 
-Now a briefing never reports a single "done". Every terminal comes back with its own result, and Jarvis says out loud which ones it could not reach. The loop was also too slow: writing one good prompt takes Jarvis 10 to 21 seconds, and a spoken turn gives up after 20. So the prompts are written in parallel, five at a time, which keeps a large team from running into the model provider's rate limit. **A team of agents reports per agent, never "done".**
+Now a briefing never reports a single "done". Every terminal comes back with its own result, and Dodaios says out loud which ones it could not reach. The loop was also too slow: writing one good prompt takes Dodaios 10 to 21 seconds, and a spoken turn gives up after 20. So the prompts are written in parallel, five at a time, which keeps a large team from running into the model provider's rate limit. **A team of agents reports per agent, never "done".**
 
 ## No single CLI won
 
@@ -128,7 +128,7 @@ The last question was which tools those agents were. For three months the answer
   n={4}
   title="From one coding CLI to five in the same month"
   subtitle="Agent sessions started each month, by the CLI they ran in."
-  source="Personal Jarvis CLI usage index, agent sessions with five or more model calls"
+  source="Dodaios CLI usage index, agent sessions with five or more model calls"
   legend={CLI_ORDER.map((c) => ({ label: c, color: CLI_COLOR[c] }))}
   table={{
     head: ["Month", ...CLI_ORDER],
@@ -141,19 +141,19 @@ The last question was which tools those agents were. For three months the answer
 
 May through July was Codex. August swung to Claude Code, which ran 83% of that month's sessions. September split five ways, and no CLI ran more than 37% of them.
 
-We did not expect to switch tools this often, and we doubt we are done. That is why a pane in Jarvis is not tied to one tool. Any pane can run Claude Code, Codex, Cursor CLI, OpenCode, Kimi Code, the GLM Coding Plan, Grok Build, Antigravity, DeepSeek Harness or a plain shell, and one workspace can mix them.
+We did not expect to switch tools this often, and we doubt we are done. That is why a pane in Dodaios is not tied to one tool. Any pane can run Claude Code, Codex, Cursor CLI, OpenCode, Kimi Code, the GLM Coding Plan, Grok Build, Antigravity, DeepSeek Harness or a plain shell, and one workspace can mix them.
 
 ## If you're doing the same
 
-- **Count first.** Open the Spend view in Jarvis. It reads the same session logs we used, so you can see your own numbers before you change anything.
+- **Count first.** Open the Spend view in Dodaios. It reads the same session logs we used, so you can see your own numbers before you change anything.
 - **Plan for ten.** Our typical peak went from one to ten between May and August.
 - **One checkout per agent.** Use **New workspace in a worktree** whenever agents might touch the same files.
 - **Let a queue land the work.** Don't re-test every pull request on every push; merge what conflicts, land what is green.
 - **Ask for results per agent.** When you brief a team, check which agents actually received the task.
 - **Mix tools by task.** Group agents by the work they share, not by the CLI they run in.
 
-We will keep measuring as this grows. If your numbers look very different from ours, tell us on [GitHub](https://github.com/PersonalJarvis/PersonalJarvis/issues).
+We will keep measuring as this grows. If your numbers look very different from ours, tell us on [GitHub](https://github.com/Dodaios/Dodaios/issues).
 
 <div class="note">
-  <strong>How we measured.</strong> One workstation, the one Personal Jarvis is developed on, May 1 to September 29, 2026, local time. The index covers every Codex, Claude Code, Grok Build, OpenCode and Antigravity session on that machine, inside a Jarvis workspace or not. Sessions with fewer than five model calls were excluded, and Claude Code subagent transcripts were folded into the session that started them. Five-minute windows are coarse: two agents that each made one call in the same window count as working together, even if their calls were minutes apart. The commit count is for the public main branch in September 2026. Your numbers will depend on how you work.
+  <strong>How we measured.</strong> One workstation, the one Dodaios is developed on, May 1 to September 29, 2026, local time. The index covers every Codex, Claude Code, Grok Build, OpenCode and Antigravity session on that machine, inside a Dodaios workspace or not. Sessions with fewer than five model calls were excluded, and Claude Code subagent transcripts were folded into the session that started them. Five-minute windows are coarse: two agents that each made one call in the same window count as working together, even if their calls were minutes apart. The commit count is for the public main branch in September 2026. Your numbers will depend on how you work.
 </div>

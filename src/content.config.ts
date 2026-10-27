@@ -22,7 +22,7 @@ const posts = defineCollection({
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
     /**
-     * Force the "Personal Jarvis is now called Dodaios" line on or off. Left
+     * Force the "Written when the project was still called Personal Jarvis" line on or off. Left
      * out, a post published before the rename gets it (RENAMED_ON in lib.ts).
      */
     renameNote: z.boolean().optional(),

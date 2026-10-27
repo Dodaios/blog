@@ -19,7 +19,7 @@
       },
       {
         "key": "tool",
-        "label": "Jarvis tools",
+        "label": "Dodaios tools",
         "parts": [
           {
             "label": "Connected",
@@ -103,7 +103,7 @@
         "n": 38
       },
       {
-        "label": "A tool built into Jarvis",
+        "label": "A tool built into Dodaios",
         "n": 6
       },
       {

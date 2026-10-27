@@ -12,7 +12,7 @@ Personal Jarvis has a new name: **Dodaios**. The website is now [dodaios.ai](htt
 
 If you already have the app installed, one thing needs doing by hand: update it once. Versions up to and including 3.1.1 can no longer see new releases, and the reason is a single redirect that our update check does not follow. Your settings, API keys and data stay where they are.
 
-This post covers what changed, what did not, the one manual update, and three things the move broke on our side. "We" means the people building Dodaios and the coding agents that do much of the typing. The grey chips like <Gh path="jarvis/ui/web/update_routes.py" /> link to the source on GitHub.
+This post covers what changed, what did not, the one manual update, and three things the move broke on our side. "We" means the people building Dodaios and the coding agents that do much of the typing. The grey chips like <Gh path="dodaios/ui/web/update_routes.py" /> link to the source on GitHub.
 
 ## What changed
 
@@ -33,7 +33,7 @@ Dodaios is the name of the app. It is not a new name for your assistant, which s
 - **The app.** The same features and the same code. You still need no account.
 - **The licence.** Apache 2.0, free to use.
 - **Your data.** Settings, API keys and everything the app stored stay on your computer.
-- **The names you type.** The command is still `jarvis`, the settings file is still `jarvis.toml`, the Python package is still `personal-jarvis`, and the release files are still called `PersonalJarvis-Setup-x64.exe` and so on. They work as they are.
+- **The names you type.** The command is still `jarvis`, the settings file is still `jarvis.toml`, the Python package is still `personal-jarvis`, and the release files are still called `PersonalJarvis-Setup-x64.exe` and so on. They work as they are. (Update: newer versions add a `dodaios` command, which is now the one to use; `jarvis` keeps working.)
 - **Old links.** GitHub redirects the old repository address to the new one, for pages, raw files and `git` itself.
 - **Earlier posts on this blog.** They keep the name they were written with, under a one-line note.
 
@@ -41,7 +41,7 @@ Dodaios is the name of the app. It is not a new name for your assistant, which s
 
 The update check in 3.1.1 and older asks GitHub for the latest release of `PersonalJarvis/PersonalJarvis`. Since the repository moved, GitHub answers that request with a redirect to the new address instead of the release.
 
-The check does not follow redirects, and it treats every answer that is not a release as "nothing new". So the app stays silent and never offers you the update. The code is `_fetch_latest_release` in <Gh path="jarvis/ui/web/update_routes.py" />.
+The check does not follow redirects, and it treats every answer that is not a release as "nothing new". So the app stays silent and never offers you the update. The code is `_fetch_latest_release` in <Gh path="dodaios/ui/web/update_routes.py" />.
 
 The way out is to get past 3.1.1 once, by hand. There are two ways.
 

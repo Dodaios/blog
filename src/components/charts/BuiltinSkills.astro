@@ -1,6 +1,6 @@
 ---
 /**
- * Every skill that ships with Jarvis as one square, grouped by what it is
+ * Every skill that ships with Dodaios as one square, grouped by what it is
  * for. Read from src/data/agent-hands.json (`skills.groups`).
  */
 import data from "@/data/agent-hands.json";
@@ -27,7 +27,7 @@ const lx = gridW + 28;
 const H = Math.max(top + gridH + 8, 150);
 ---
 
-<svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${data.skills.builtin} skills ship with Jarvis: ` + groups.map((g) => `${g.label} ${g.n}`).join("; ")}>
+<svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${data.skills.builtin} skills ship with Dodaios: ` + groups.map((g) => `${g.label} ${g.n}`).join("; ")}>
   {
     sq.map((s) => (
       <rect x={s.x} y={s.y} width={cell} height={cell} rx="4" fill={s.g.fill} data-tip={`<b>${esc(s.g.label)}</b><br>${s.g.n} of ${data.skills.builtin} built-in skills`} />

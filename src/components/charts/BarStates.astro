@@ -1,16 +1,16 @@
 ---
 /**
- * Every look the Jarvis bar takes around a dictation, rendered by the bar's
- * own drawing code (jarvis/ui/jarvisbar/renderer.py) at a large size and shown
+ * Every look the Dodaios Bar takes around a dictation, rendered by the bar's
+ * own drawing code (dodaios/ui/dodaiosbar/renderer.py) at a large size and shown
  * at their true size relative to each other. Only the mic level behind the
  * "Recording" frame is synthetic.
  */
 import { Image } from "astro:assets";
-import idle from "@/assets/posts/how-jarvis-voice-works/bar-idle.png";
-import dictate from "@/assets/posts/how-jarvis-voice-works/bar-dictate.png";
-import transcribing from "@/assets/posts/how-jarvis-voice-works/bar-transcribing.png";
-import notice from "@/assets/posts/how-jarvis-voice-works/bar-notice.png";
-import prompt from "@/assets/posts/how-jarvis-voice-works/bar-prompt.png";
+import idle from "@/assets/posts/how-dodaios-voice-works/bar-idle.png";
+import dictate from "@/assets/posts/how-dodaios-voice-works/bar-dictate.png";
+import transcribing from "@/assets/posts/how-dodaios-voice-works/bar-transcribing.png";
+import notice from "@/assets/posts/how-dodaios-voice-works/bar-notice.png";
+import prompt from "@/assets/posts/how-dodaios-voice-works/bar-prompt.png";
 
 interface Props {
   n: number;
@@ -26,7 +26,7 @@ const STATES = [
   { src: idle, name: "Resting", text: "A slim pill with muted dots. Nothing is recording." },
   { src: dictate, name: "Recording", text: "Gold bars that rise and fall with your voice while you hold the key." },
   { src: transcribing, name: "Transcribing", text: "A highlight sweeps along the row: you let go and the text is on its way." },
-  { src: notice, name: "Did not happen", text: "A red cross that breathes, then clears: Jarvis could not start what you asked." },
+  { src: notice, name: "Did not happen", text: "A red cross that breathes, then clears: Dodaios could not start what you asked." },
   { src: prompt, name: "Prompt Mode on", text: "A sparkle in the resting pill. Click it to pause Prompt Mode." },
 ];
 ---
@@ -41,7 +41,7 @@ const STATES = [
     STATES.map((s) => (
       <div class="state">
         <div class="pad">
-          <Image src={s.src} alt={`The Jarvis bar, ${s.name.toLowerCase()}`} width={Math.round(s.src.width * K)} densities={[1, 2]} />
+          <Image src={s.src} alt={`The Dodaios Bar, ${s.name.toLowerCase()}`} width={Math.round(s.src.width * K)} densities={[1, 2]} />
         </div>
         <p class="name">{s.name}</p>
         <p class="text small">{s.text}</p>

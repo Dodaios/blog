@@ -3,7 +3,8 @@
 Source of [dodaios.ai/blog](https://dodaios.ai/blog/): new features, field notes
 and tips for [Dodaios](https://dodaios.ai), the open-source desktop AI assistant.
 The project was called Personal Jarvis until October 2026; posts from before
-then keep that name and carry a one-line note.
+then carry a one-line note saying so. Renamed post addresses redirect to their new
+slug (`src/renamed-slugs.ts`).
 
 Astro 7 + MDX, static, deployed to GitHub Pages. Charts are Astro components that render
 inline SVG at build time from aggregated data in `src/data/` — no chart library.

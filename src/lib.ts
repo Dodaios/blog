@@ -33,7 +33,7 @@ export function formatDate(d: Date): string {
  * cache a card image by its URL for days; bump this when src/og.ts changes
  * how cards look, or shares keep showing the old design.
  */
-export const OG_VERSION = 4;
+export const OG_VERSION = 5;
 
 export const SITE = {
   name: "Dodaios",
@@ -47,8 +47,9 @@ export const SITE = {
 
 /**
  * The project was called Personal Jarvis until this day. Posts published
- * before it name the product by its old name and are left as written; the
- * post page puts one line above them that says so (see `showsRenameNote`).
+ * before it now use the current name too (the old one is a trademark we do
+ * not hold), and the post page puts one line above them saying they were
+ * written under the old name (see `showsRenameNote`).
  */
 export const FORMER_NAME = "Personal Jarvis";
 export const RENAMED_ON = new Date("2026-10-12T00:00:00Z");

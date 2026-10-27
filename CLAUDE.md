@@ -4,9 +4,12 @@ Rules for any coding agent working in this repo.
 
 - This is the blog for dodaios.ai/blog. It is its OWN git repo. Never commit it into the
   Dodaios app repo or the main website repo, and never the other way round. The app source is
-  READ-ONLY reference for facts. The project was called Personal Jarvis until October 2026:
-  posts from before then keep that name, and the post page adds one line saying so
-  (`showsRenameNote` in `src/lib.ts`). Never rewrite their prose to the new name.
+  READ-ONLY reference for facts. The project was called Personal Jarvis until October 2026.
+  "Jarvis" is a trademark we do not hold, so every post names the product Dodaios, slugs and
+  file names never contain "jarvis", and posts from before the rename carry one line saying
+  they were written under the old name (`showsRenameNote` in `src/lib.ts`). "Personal Jarvis"
+  appears only as the historical name. A renamed slug keeps its old address as a redirect
+  (`src/renamed-slugs.ts`); never remove an entry there.
 - Everything committed is English. Conversation with the maintainer is German.
 - `.claude/` (authoring skills, topic backlog) and `drafts/` are private and gitignored. Never
   force-add them. Use the `blog-*` skills in `.claude/skills/` for any post work; start with

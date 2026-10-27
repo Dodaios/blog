@@ -1,5 +1,5 @@
 {
- "_about": "Personal Jarvis spend, calendar September 2026 (Europe/Berlin), read from the app's own /api/costs on the maintainer's machine on 2026-10-01. Aggregates only.",
+ "_about": "Dodaios spend, calendar September 2026 (Europe/Berlin), read from the app's own /api/costs on the maintainer's machine on 2026-10-01. Aggregates only.",
  "totals": {
   "value": 15223.89,
   "subscription": 15007.24,

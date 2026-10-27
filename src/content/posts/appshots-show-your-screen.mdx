@@ -16,9 +16,9 @@ import markedArea from "@/assets/posts/appshots/marked-area.webp";
 
 Between October 3 and 12 we took {data.totals.appshots} appshots while building Dodaios. {data.totals.area} of them were an area we dragged with the mouse. The shortcut we built first, the one that captures the whole window in front, fired {data.windowByTrigger.hotkey} times.
 
-An appshot is a screenshot taken for your assistant. You press a shortcut, the picture and the text on it are captured once, and they go into the conversation as context. Your next sentence is the question. Dodaios is the desktop app we used to call Personal Jarvis: a voice assistant and a workspace for coding agents, running on your own computer.
+An appshot is a screenshot taken for your assistant. You press a shortcut, the picture and the text on it are captured once, and they go into the conversation as context. Your next sentence is the question. Dodaios is the desktop app we used to call Dodaios: a voice assistant and a workspace for coding agents, running on your own computer.
 
-This post covers the three ways to take an appshot, why we ended up dragging areas, how to point at something before you send it, where the picture goes, and three things that broke. "We" means the people building Dodaios and the coding agents that do much of the typing. The grey chips like <Gh path="jarvis/appshot/service.py" /> link to the source on GitHub.
+This post covers the three ways to take an appshot, why we ended up dragging areas, how to point at something before you send it, where the picture goes, and three things that broke. "We" means the people building Dodaios and the coding agents that do much of the typing. The grey chips like <Gh path="dodaios/appshot/service.py" /> link to the source on GitHub.
 
 ## Three ways to take one
 
@@ -32,7 +32,7 @@ All three are on by default. You change the shortcuts under **Settings → Appsh
 
 The same page has a **Try it** row with two buttons. **Take appshot in 3 s** waits three seconds so you can switch to the window you mean, and **Select area** opens the area picker right away.
 
-A two-key shortcut on `Shift` sounds like something you would trigger all day by typing. It does not fire, because the second `Shift` has to follow the first within half a second, and nobody types a capital letter that way. The rule lives in <Gh path="jarvis/appshot/gesture.py" /> as `TOGETHER_S = 0.5`. To pick other keys, click **Change** next to a shortcut and press the new combination.
+A two-key shortcut on `Shift` sounds like something you would trigger all day by typing. It does not fire, because the second `Shift` has to follow the first within half a second, and nobody types a capital letter that way. The rule lives in <Gh path="dodaios/appshot/gesture.py" /> as `TOGETHER_S = 0.5`. To pick other keys, click **Change** next to a shortcut and press the new combination.
 
 ## We built the window shortcut and use the area one
 
@@ -90,7 +90,7 @@ The tools have one-letter keys. These are the ones we reach for:
 
 `Enter` takes the appshot with the markings. `Ctrl` + `Z` undoes the last one. The chart in figure 2 comes from [our post about running many coding agents at once](../how-many-coding-agents-at-once/).
 
-The order in which the picture is built matters. The capture first goes through the privacy filter, which we come to below. Only then are the markings added, in <Gh path="jarvis/appshot/markup.py" />: pixelate and blur on the capture's own pixels, then the drawn markings on top. So a marking can never bring back something the filter removed. And a pixelated strip is gone from the picture itself, not covered by a layer that could be lifted off.
+The order in which the picture is built matters. The capture first goes through the privacy filter, which we come to below. Only then are the markings added, in <Gh path="dodaios/appshot/markup.py" />: pixelate and blur on the capture's own pixels, then the drawn markings on top. So a marking can never bring back something the filter removed. And a pixelated strip is gone from the picture itself, not covered by a layer that could be lifted off.
 
 The assistant also gets one sentence with a marked appshot: the markings are yours, arrows and numbers point at what they mean, and blurred or pixelated parts were hidden on purpose. The note is there so a model does not take a red arrow for part of the app.
 
@@ -134,7 +134,7 @@ With a video playing, the picture was whatever frame was showing several seconds
 
 Each press of the area shortcut used to start a fresh Python process, load the windowing library and only then dim the screens. On Windows we measured about 399 ms from starting that process to its ready signal, long enough for the busy cursor to show up.
 
-The picker now stays prepared in the background while appshots are switched on, in <Gh path="jarvis/appshot/picker_host.py" />. The same measurement gives 94 to 133 ms per selection. While it waits it holds no screenshot and no window, and switching appshots off ends it. This change is in Dodaios 3.0.0.
+The picker now stays prepared in the background while appshots are switched on, in <Gh path="dodaios/appshot/picker_host.py" />. The same measurement gives 94 to 133 ms per selection. While it waits it holds no screenshot and no window, and switching appshots off ends it. This change is in Dodaios 3.0.0.
 
 Those numbers are from one Windows machine with Python 3.11. They cover the picker, not the privacy checks and the capture that follow. On macOS and Linux the same code path runs, but we have not measured it there.
 
@@ -166,7 +166,7 @@ The full reference, with every key and setting, is <Gh path="docs/appshots.md" l
 - **Use the clipboard copy:** after any shortcut appshot, paste the same picture wherever else you need it.
 - **Put the apps you never want captured on the denylist** before you need it, not after.
 
-Dodaios is open source at [github.com/Dodaios/Dodaios](https://github.com/Dodaios/Dodaios), and you can get the app at [dodaios.ai](https://dodaios.ai). If an appshot captures the wrong window for you, tell us in an [issue](https://github.com/Dodaios/Dodaios/issues) and name the app that was in front. For the other way to get words into any app without typing, see [how dictation works](../how-jarvis-voice-works/).
+Dodaios is open source at [github.com/Dodaios/Dodaios](https://github.com/Dodaios/Dodaios), and you can get the app at [dodaios.ai](https://dodaios.ai). If an appshot captures the wrong window for you, tell us in an [issue](https://github.com/Dodaios/Dodaios/issues) and name the app that was in front. For the other way to get words into any app without typing, see [how dictation works](../how-dodaios-voice-works/).
 
 <div class="note">
   <strong>How we measured.</strong> Figure 1 and every count in this post come from the <code>meta.json</code> files of the appshot gallery on the machine Dodaios is built on, read on October 12, 2026, in local days. Each file records when an appshot was taken, how it was triggered, and whether it was a selected area. We exported counts only: no pictures, window titles or on-screen text were read. The gallery keeps appshots taken with a shortcut, a button or on request in a conversation; appshots that were deleted since, or taken while the gallery was switched off, are not in the numbers. "Dodaios itself was the app in front" counts the appshots whose recorded app was the desktop app or its development copy. The {data.totals.edited} edits are appshots with a saved version from the editor; markings made in the area picker before the shot are not recorded separately. The picker timings are the measurements written down in <code>docs/appshots.md</code>. Figure 2 is a real chart from this blog with markings placed by a script through the app's own drawing and burning code; it was not taken with the shortcut.
